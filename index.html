@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Money and the economy, explained simply by a calculator who prints the receipt. Meet Tab and the cast.">
+<link rel="icon" href="img/tab.png">
+<title>Print The Receipt</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=DM+Mono:wght@400;500&family=Figtree:wght@400;600;800&display=swap">
+<style>
+/* Layout: dark bar-room page; the one bright object is a paper receipt that Tab prints in the hero. Cast sits on the floor below as a roll call. */
+:root {
+  color-scheme: dark;
+  --night: #2b1b3d; --night-2: #3a2552; --floor: #231531; --ink: #1a1026;
+  --paper: #f6ecd9; --paper-dim: #cfc3b4; --mustard: #f2b632; --coral: #ff6b5e; --lcd: #7ef2d9;
+  --display: "Bowlby One", "Arial Black", Impact, sans-serif;
+  --body: Figtree, "Segoe UI", system-ui, sans-serif;
+  --mono: "DM Mono", "DejaVu Sans Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--night); color: var(--paper); font: 400 1.0625rem/1.55 var(--body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: inherit; }
+a:focus-visible { outline: 3px solid var(--lcd); outline-offset: 3px; border-radius: 6px; }
+h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.02; text-wrap: balance; margin: 0; letter-spacing: .01em; }
+h3 { font: 800 1.2rem/1.2 var(--body); margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.meta { font: 500 .78rem/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--paper-dim); }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 16px; }
+.brand { font: 500 .95rem var(--mono); letter-spacing: .14em; text-decoration: none; }
+.btn { display: inline-block; background: var(--coral); color: var(--ink); font: 800 1rem var(--body); text-decoration: none; padding: .7em 1.15em; border: 3px solid var(--ink); border-radius: 999px; box-shadow: 0 4px 0 var(--ink); transition: transform .12s, box-shadow .12s; }
+.btn:hover { transform: translateY(2px); box-shadow: 0 2px 0 var(--ink); }
+.btn.small { font-size: .9rem; padding: .5em .95em; }
+
+.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 32px; align-items: end; padding-block: 28px 0; }
+.hero h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
+.hero h1 em { font-style: normal; color: var(--mustard); }
+.lede { font-size: 1.2rem; max-width: 34em; margin-top: 18px; color: var(--paper); }
+.hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 26px; padding-bottom: 44px; }
+.hero-cta .meta a { text-underline-offset: 3px; }
+.stage { position: relative; display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.receipt { background: var(--paper); color: var(--ink); font: 400 .82rem/1.5 var(--mono); width: min(100%, 300px); padding: 16px 18px 26px; transform: rotate(-2deg); position: relative; z-index: 1; margin-bottom: -70px;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), 95% 100%, 90% calc(100% - 10px), 85% 100%, 80% calc(100% - 10px), 75% 100%, 70% calc(100% - 10px), 65% 100%, 60% calc(100% - 10px), 55% 100%, 50% calc(100% - 10px), 45% 100%, 40% calc(100% - 10px), 35% 100%, 30% calc(100% - 10px), 25% 100%, 20% calc(100% - 10px), 15% 100%, 10% calc(100% - 10px), 5% 100%, 0 calc(100% - 10px)); }
+.receipt b { font-weight: 500; }
+.receipt .r-head { text-align: center; letter-spacing: .16em; border-bottom: 2px dashed var(--ink); padding-bottom: 8px; margin-bottom: 8px; }
+.receipt ul { list-style: none; margin: 0; padding: 0; }
+.receipt li { display: flex; justify-content: space-between; gap: 10px; }
+.receipt li span { min-width: 0; }
+.receipt li b { white-space: nowrap; }
+.receipt .r-total { display: flex; justify-content: space-between; border-top: 2px dashed var(--ink); margin-top: 8px; padding-top: 8px; font-weight: 500; }
+.stage img { width: min(100%, 340px); height: auto; position: relative; z-index: 2; }
+@keyframes feed { from { transform: rotate(-2deg) translateY(60px); } to { transform: rotate(-2deg) translateY(0); } }
+@media (prefers-reduced-motion: no-preference) { .receipt { animation: feed .9s steps(9) both; } }
+
+.floor { background: var(--floor); border-top: 4px solid var(--ink); }
+section { padding-block: 56px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; margin-bottom: 26px; }
+.sec-head h2 { font-size: clamp(1.7rem, 4vw, 2.6rem); }
+
+.eps { display: grid; gap: 22px; }
+.ep { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 22px; align-items: start; }
+.thumb { position: relative; display: block; border: 4px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--ink); }
+.thumb img { display: block; width: 100%; height: auto; }
+.state { position: absolute; left: 10px; bottom: 10px; font: 500 .78rem var(--mono); letter-spacing: .06em; text-transform: uppercase; padding: .35em .7em; border-radius: 6px; border: 2px solid var(--ink); }
+.state.live { background: var(--coral); color: var(--ink); }
+.state.soon { background: var(--paper); color: var(--ink); }
+.ep-body { display: grid; gap: 10px; min-width: 0; }
+.ep-body .meta span { margin-left: 1em; }
+.ep-body h3 { font-size: 1.45rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; font: 500 .8rem var(--mono); text-decoration: none; background: var(--night-2); padding: 2px 10px 2px 4px; border-radius: 999px; }
+.chip:hover { background: var(--ink); }
+.chip img { width: 28px; height: 28px; }
+
+.cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 34px 26px; }
+.card { display: grid; grid-template-rows: auto 1fr; scroll-margin-top: 20px; }
+.card img { width: 190px; height: 190px; justify-self: start; margin-left: -18px; transition: transform .2s; }
+.card:hover img { transform: translateY(-6px) rotate(-3deg); }
+@media (prefers-reduced-motion: reduce) { .card:hover img { transform: none; } }
+.card-body { display: grid; gap: 8px; align-content: start; border-top: 3px solid var(--night-2); padding-top: 12px; }
+.card:target .card-body { border-top-color: var(--mustard); }
+.card h3 { font: 400 1.5rem/1.1 var(--display); letter-spacing: .01em; }
+.role { color: var(--mustard); font-weight: 600; }
+.says { font: 500 .92rem/1.4 var(--mono); color: var(--lcd); }
+
+footer { padding-block: 34px 44px; display: grid; gap: 10px; color: var(--paper-dim); font-size: .92rem; }
+footer p { max-width: 65ch; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; gap: 8px; }
+  .hero-cta { padding-bottom: 16px; }
+  .ep { grid-template-columns: 1fr; gap: 12px; }
+  .receipt { margin-bottom: -60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top" id="top">PRINT THE RECEIPT</a>
+    <a class="btn small" href="https://www.youtube.com/@PrintTheReceipt?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Money, explained.<br><em>With the receipts.</em></h1>
+      <p class="lede">Tab is a calculator. He runs the numbers on debt, inflation, bubbles and why everything costs more, then prints the receipt so you can check every figure yourself.</p>
+      <div class="hero-cta">
+        <a class="btn" href="https://www.youtube.com/@PrintTheReceipt" target="_blank" rel="noopener">Watch on YouTube</a>
+        <p class="meta"><a href="#cast">Meet the cast</a></p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="receipt">
+        <div class="r-head">PRINT THE RECEIPT</div>
+        <ul><li><span>Which Rich Country Goes Broke First?</span><b>No. 001</b></li><li><span>Who Pays If the AI Bubble Pops?</span><b>No. 002</b></li></ul>
+        <div class="r-total"><span>JARGON</span><b>$0.00</b></div>
+        <div class="r-total" style="border:0;margin:0;padding:0"><span>SOURCES</span><b>INCLUDED</b></div>
+      </div>
+      <img src="img/tab-hero.png" alt="Tab, a mustard-yellow printing calculator with a smiling screen" width="360" height="360">
+    </div>
+  </div>
+</div>
+
+<div class="floor">
+  <div class="wrap">
+    <section id="episodes">
+      <div class="sec-head"><h2>The receipts</h2><p class="meta">2 printed so far</p></div>
+      <div class="eps">
+<article class="ep">
+  <div class="thumb"><img src="img/ep02.jpg" alt="" width="640" height="360" loading="lazy"><span class="state soon">Prints Nov 7, 2026</span></div>
+  <div class="ep-body">
+    <p class="meta">Receipt No. 002 <span>Nov 7, 2026</span></p>
+    <h3>Who Pays If the AI Bubble Pops? (It&#x27;s Not Big Tech)</h3>
+    <p>Five players, one very large bill. Tab follows the money from the chip makers to your pension.</p>
+    <div class="chips"><a class="chip" href="#c-bt"><img src="img/bt.png" alt="" width="28" height="28">Big Tech</a><a class="chip" href="#c-ch"><img src="img/ch.png" alt="" width="28" height="28">Chip Makers</a><a class="chip" href="#c-lb"><img src="img/lb.png" alt="" width="28" height="28">AI Labs</a><a class="chip" href="#c-ld"><img src="img/ld.png" alt="" width="28" height="28">Lenders</a><a class="chip" href="#c-you"><img src="img/you.png" alt="" width="28" height="28">You</a><a class="chip" href="#c-cn"><img src="img/cn.png" alt="" width="28" height="28">China</a></div>
+  </div>
+</article>
+<article class="ep">
+  <a class="thumb" href="https://www.youtube.com/watch?v=2y3e6h05-9c" target="_blank" rel="noopener"><img src="img/ep01.jpg" alt="" width="640" height="360" loading="lazy"><span class="state live">Watch on YouTube</span></a>
+  <div class="ep-body">
+    <p class="meta">Receipt No. 001 <span>Nov 5, 2026</span></p>
+    <h3>Which Rich Country Goes Broke First? (It&#x27;s Not Japan)</h3>
+    <p>Five rich countries walk into a bar with a tab none of them can pay. The Market decides who gets cut off.</p>
+    <div class="chips"><a class="chip" href="#c-us"><img src="img/us.png" alt="" width="28" height="28">USA</a><a class="chip" href="#c-jp"><img src="img/jp.png" alt="" width="28" height="28">Japan</a><a class="chip" href="#c-fr"><img src="img/fr.png" alt="" width="28" height="28">France</a><a class="chip" href="#c-it"><img src="img/it.png" alt="" width="28" height="28">Italy</a><a class="chip" href="#c-uk"><img src="img/uk.png" alt="" width="28" height="28">Britain</a><a class="chip" href="#c-gr"><img src="img/gr.png" alt="" width="28" height="28">Greece</a><a class="chip" href="#c-mk"><img src="img/mk.png" alt="" width="28" height="28">The Market</a></div>
+  </div>
+</article>
+      </div>
+    </section>
+
+    <section id="cast">
+      <div class="sec-head"><h2>Meet the cast</h2><p class="meta">14 calculators and counting</p></div>
+      <div class="cast">
+<article class="card" id="c-tab">
+  <img src="img/tab.png" alt="Tab, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Tab</h3>
+    <p class="role">Host. Printing calculator.</p>
+    <p>Runs the numbers so you don&#x27;t have to, then prints the receipt so you can check them anyway. Has never rounded up in his life. Screams internally at the word &quot;roughly&quot;.</p>
+    <p class="says">&ldquo;Let&#x27;s print the receipt.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 001</p>
+  </div>
+</article>
+<article class="card" id="c-mk">
+  <img src="img/mk.png" alt="The Market, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>The Market</h3>
+    <p class="role">Bouncer. Lender. Mood swing.</p>
+    <p>Decides who gets another round and who gets cut off. Calm for years, then panics in an afternoon. Wears a bow tie so you think there is a plan.</p>
+    <p class="says">&ldquo;I was fine until I wasn&#x27;t.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 001</p>
+  </div>
+</article>
+<article class="card" id="c-us">
+  <img src="img/us.png" alt="USA, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>USA</h3>
+    <p class="role">Biggest tab at the bar.</p>
+    <p>Owes more than anyone in the room and still gets served first, because the bar only takes his money. Considers this a personality.</p>
+    <p class="says">&ldquo;Put it on my tab. It&#x27;s my bar.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 001</p>
+  </div>
+</article>
+<article class="card" id="c-jp">
+  <img src="img/jp.png" alt="Japan, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Japan</h3>
+    <p class="role">Owes the most. Sleeps the best.</p>
+    <p>Has a bigger tab than anyone, compared with what he earns. Mostly borrowed it from his own family, so nobody is knocking on the door. Yet.</p>
+    <p class="says">&ldquo;I owe it to myself. Literally.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 001</p>
+  </div>
+</article>
+<article class="card" id="c-fr">
+  <img src="img/fr.png" alt="France, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>France</h3>
+    <p class="role">The one the receipt pointed at.</p>
+    <p>Episode 1 ended with Tab&#x27;s receipt sliding across the bar in this direction. Not a prediction. France would like that underlined.</p>
+    <p class="says">&ldquo;It is a model, not a verdict.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 001</p>
+  </div>
+</article>
+<article class="card" id="c-it">
+  <img src="img/it.png" alt="Italy, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Italy</h3>
+    <p class="role">Veteran of being almost broke.</p>
+    <p>Has been five minutes from disaster for about thirty years and has the calmest heartbeat in the room because of it.</p>
+    <p class="says">&ldquo;First time?&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 001</p>
+  </div>
+</article>
+<article class="card" id="c-uk">
+  <img src="img/uk.png" alt="Britain, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Britain</h3>
+    <p class="role">Spooked the Market once.</p>
+    <p>In 2022 one budget made the Market spill its drink. Britain has been reading every line twice ever since.</p>
+    <p class="says">&ldquo;We don&#x27;t talk about that autumn.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 001</p>
+  </div>
+</article>
+<article class="card" id="c-gr">
+  <img src="img/gr.png" alt="Greece, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Greece</h3>
+    <p class="role">Already got the bill.</p>
+    <p>Was handed the check back in 2010 and still keeps the receipt in a drawer. Shows up to warn the others. Nobody listens.</p>
+    <p class="says">&ldquo;Ask me how I know.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 001</p>
+  </div>
+</article>
+<article class="card" id="c-bt">
+  <img src="img/bt.png" alt="Big Tech, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Big Tech</h3>
+    <p class="role">Buys the chips. All of them.</p>
+    <p>Spending more on data centers than some countries spend on everything. Says it will pay off. Says it very confidently.</p>
+    <p class="says">&ldquo;Trust me, it&#x27;s an investment.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 002</p>
+  </div>
+</article>
+<article class="card" id="c-ch">
+  <img src="img/ch.png" alt="Chip Makers, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Chip Makers</h3>
+    <p class="role">Sells the shovels.</p>
+    <p>Whoever wins the AI race, he already got paid. Trying very hard not to look smug about it.</p>
+    <p class="says">&ldquo;I just work here.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 002</p>
+  </div>
+</article>
+<article class="card" id="c-lb">
+  <img src="img/lb.png" alt="AI Labs, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>AI Labs</h3>
+    <p class="role">Burns cash. Makes magic.</p>
+    <p>Brilliant, exhausting, permanently one funding round from either changing the world or needing a lift home.</p>
+    <p class="says">&ldquo;Revenue is a mindset.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 002</p>
+  </div>
+</article>
+<article class="card" id="c-ld">
+  <img src="img/ld.png" alt="Lenders, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Lenders</h3>
+    <p class="role">The quiet money.</p>
+    <p>Lent the money for the buildings, the chips and the power. Stands at the back. Wants it back. With interest.</p>
+    <p class="says">&ldquo;I&#x27;ll wait.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 002</p>
+  </div>
+</article>
+<article class="card" id="c-cn">
+  <img src="img/cn.png" alt="China, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>China</h3>
+    <p class="role">The other race.</p>
+    <p>Running the same race on a different track, with a different rulebook, and not planning to come second.</p>
+    <p class="says">&ldquo;We&#x27;ll see.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 002</p>
+  </div>
+</article>
+<article class="card" id="c-you">
+  <img src="img/you.png" alt="You, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>You</h3>
+    <p class="role">Holding the bill. Somehow.</p>
+    <p>Did not order anything. Is not at the table. Finds out later that the pension fund was. Tab made this channel for you.</p>
+    <p class="says">&ldquo;Wait, why is my name on this?&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 002</p>
+  </div>
+</article>
+      </div>
+    </section>
+
+    <footer>
+      <p>Tab, the Market and the rest of the cast are fictional characters. The countries and companies they stand for are real, and so are the numbers: every video lists its sources in the description.</p>
+      <p>For education only. Not financial advice, and not a prediction. Made with the help of AI tools.</p>
+      <p class="meta"><a href="https://www.youtube.com/@PrintTheReceipt" target="_blank" rel="noopener">youtube.com/@PrintTheReceipt</a></p>
+    </footer>
+  </div>
+</div>
+
+</body>
+</html>
