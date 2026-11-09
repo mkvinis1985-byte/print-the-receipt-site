@@ -74,6 +74,7 @@ section { padding-block: 56px; }
 .chip:hover { background: var(--ink); }
 .chip img { width: 28px; height: 28px; }
 
+.shorts { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px } .shorts li a { display:block; padding:14px 16px; border:2px solid currentColor; border-radius:14px; text-decoration:none; color:inherit; font-weight:700 } .shorts li a:hover { background:rgba(0,0,0,.06) } .shorts .kind { display:block; font-size:12px; opacity:.7; font-weight:400; margin-bottom:4px }
 .cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 34px 26px; }
 .card { display: grid; grid-template-rows: auto 1fr; scroll-margin-top: 20px; }
 .card img { width: 190px; height: 190px; justify-self: start; margin-left: -18px; transition: transform .2s; }
@@ -112,11 +113,12 @@ footer p { max-width: 65ch; }
         <a class="btn" href="https://www.youtube.com/@PrintTheReceipt" target="_blank" rel="noopener">Watch on YouTube</a>
         <p class="meta"><a href="#cast">Meet the cast</a></p>
       </div>
+      <p class="meta" style="margin-top:14px">New receipts every Wednesday (7 PM Lisbon) and Saturday (5 PM Lisbon). Shorts every day.</p>
     </div>
     <div class="stage">
       <div class="receipt">
         <div class="r-head">PRINT THE RECEIPT</div>
-        <ul><li><span>Which Rich Country Goes Broke First?</span><b>No. 001</b></li><li><span>Who Pays If the AI Bubble Pops?</span><b>No. 002</b></li></ul>
+        <ul><li><span>The Next Rich Country to Go Broke Isn&#x27;t Who You Think?</span><b>No. 001</b></li><li><span>When the AI Bubble Bursts, Who Pays the Bill?</span><b>No. 002</b></li><li><span>America Owes $30 Trillion. Who Lent It the Money?</span><b>No. 003</b></li></ul>
         <div class="r-total"><span>JARGON</span><b>$0.00</b></div>
         <div class="r-total" style="border:0;margin:0;padding:0"><span>SOURCES</span><b>INCLUDED</b></div>
       </div>
@@ -128,13 +130,22 @@ footer p { max-width: 65ch; }
 <div class="floor">
   <div class="wrap">
     <section id="episodes">
-      <div class="sec-head"><h2>The receipts</h2><p class="meta">2 printed so far</p></div>
+      <div class="sec-head"><h2>The receipts</h2><p class="meta">3 printed so far</p></div>
       <div class="eps">
 <article class="ep">
-  <div class="thumb"><img src="img/ep02.jpg" alt="" width="640" height="360" loading="lazy"><span class="state soon">Prints Nov 7, 2026</span></div>
+  <a class="thumb" href="https://www.youtube.com/watch?v=SPR12drWz8o" target="_blank" rel="noopener"><img src="img/ep03.jpg" alt="" width="640" height="360" loading="lazy"><span class="state live">Watch on YouTube</span></a>
+  <div class="ep-body">
+    <p class="meta">Receipt No. 003 <span>Nov 9, 2026</span></p>
+    <h3>America Owes $30 Trillion. Who Lent It the Money?</h3>
+    <p>Everyone says China. China holds about 2%. Tab follows the money to the five real lenders, and the last name on the receipt is yours.</p>
+    <div class="chips"><a class="chip" href="#c-ld"><img src="img/ld.png" alt="" width="28" height="28">Lenders</a><a class="chip" href="#c-uk"><img src="img/uk.png" alt="" width="28" height="28">Britain</a><a class="chip" href="#c-jp"><img src="img/jp.png" alt="" width="28" height="28">Japan</a><a class="chip" href="#c-cn"><img src="img/cn.png" alt="" width="28" height="28">China</a><a class="chip" href="#c-gov"><img src="img/gov.png" alt="" width="28" height="28">The Government</a><a class="chip" href="#c-you"><img src="img/you.png" alt="" width="28" height="28">You</a></div>
+  </div>
+</article>
+<article class="ep">
+  <a class="thumb" href="https://www.youtube.com/watch?v=XlVSawQsEZw" target="_blank" rel="noopener"><img src="img/ep02.jpg" alt="" width="640" height="360" loading="lazy"><span class="state live">Watch on YouTube</span></a>
   <div class="ep-body">
     <p class="meta">Receipt No. 002 <span>Nov 7, 2026</span></p>
-    <h3>Who Pays If the AI Bubble Pops? (It&#x27;s Not Big Tech)</h3>
+    <h3>When the AI Bubble Bursts, Who Pays the Bill?</h3>
     <p>Five players, one very large bill. Tab follows the money from the chip makers to your pension.</p>
     <div class="chips"><a class="chip" href="#c-bt"><img src="img/bt.png" alt="" width="28" height="28">Big Tech</a><a class="chip" href="#c-ch"><img src="img/ch.png" alt="" width="28" height="28">Chip Makers</a><a class="chip" href="#c-lb"><img src="img/lb.png" alt="" width="28" height="28">AI Labs</a><a class="chip" href="#c-ld"><img src="img/ld.png" alt="" width="28" height="28">Lenders</a><a class="chip" href="#c-you"><img src="img/you.png" alt="" width="28" height="28">You</a><a class="chip" href="#c-cn"><img src="img/cn.png" alt="" width="28" height="28">China</a></div>
   </div>
@@ -143,7 +154,7 @@ footer p { max-width: 65ch; }
   <a class="thumb" href="https://www.youtube.com/watch?v=2y3e6h05-9c" target="_blank" rel="noopener"><img src="img/ep01.jpg" alt="" width="640" height="360" loading="lazy"><span class="state live">Watch on YouTube</span></a>
   <div class="ep-body">
     <p class="meta">Receipt No. 001 <span>Nov 5, 2026</span></p>
-    <h3>Which Rich Country Goes Broke First? (It&#x27;s Not Japan)</h3>
+    <h3>The Next Rich Country to Go Broke Isn&#x27;t Who You Think</h3>
     <p>Five rich countries walk into a bar with a tab none of them can pay. The Market decides who gets cut off.</p>
     <div class="chips"><a class="chip" href="#c-us"><img src="img/us.png" alt="" width="28" height="28">USA</a><a class="chip" href="#c-jp"><img src="img/jp.png" alt="" width="28" height="28">Japan</a><a class="chip" href="#c-fr"><img src="img/fr.png" alt="" width="28" height="28">France</a><a class="chip" href="#c-it"><img src="img/it.png" alt="" width="28" height="28">Italy</a><a class="chip" href="#c-uk"><img src="img/uk.png" alt="" width="28" height="28">Britain</a><a class="chip" href="#c-gr"><img src="img/gr.png" alt="" width="28" height="28">Greece</a><a class="chip" href="#c-mk"><img src="img/mk.png" alt="" width="28" height="28">The Market</a></div>
   </div>
@@ -151,8 +162,13 @@ footer p { max-width: 65ch; }
       </div>
     </section>
 
+    <section id="shorts">
+      <div class="sec-head"><h2>Short receipts</h2><p class="meta">Under 90 seconds each</p></div>
+      <ul class="shorts"><li><a href="https://www.youtube.com/shorts/N3B17Q13YQY" target="_blank" rel="noopener"><span class="kind">Curiosity</span>Your $1,000 TV Really Costs $1,852</a></li><li><a href="https://www.youtube.com/shorts/ffdol-3jxnA" target="_blank" rel="noopener"><span class="kind">Duel</span>Germany vs Japan: Who Is Actually Richer?</a></li><li><a href="https://www.youtube.com/shorts/AdUnjWvRsxQ" target="_blank" rel="noopener"><span class="kind">Duel</span>USA vs China: Who Is Actually Richer?</a></li><li><a href="https://www.youtube.com/shorts/OLtQJUy5_Q8" target="_blank" rel="noopener"><span class="kind">Teaser</span>If the AI Bubble Pops, Who Pays? (Not Big Tech)</a></li><li><a href="https://www.youtube.com/shorts/_ChWxyCcmBU" target="_blank" rel="noopener"><span class="kind">Teaser</span>The Biggest Debt Isn&#x27;t the One Going Broke First</a></li></ul>
+    </section>
+
     <section id="cast">
-      <div class="sec-head"><h2>Meet the cast</h2><p class="meta">14 calculators and counting</p></div>
+      <div class="sec-head"><h2>Meet the cast</h2><p class="meta">17 calculators and counting</p></div>
       <div class="cast">
 <article class="card" id="c-tab">
   <img src="img/tab.png" alt="Tab, a cartoon calculator" width="360" height="360" loading="lazy">
@@ -292,6 +308,36 @@ footer p { max-width: 65ch; }
     <p>Did not order anything. Is not at the table. Finds out later that the pension fund was. Tab made this channel for you.</p>
     <p class="says">&ldquo;Wait, why is my name on this?&rdquo;</p>
     <p class="meta">First printed in Receipt No. 002</p>
+  </div>
+</article>
+<article class="card" id="c-gov">
+  <img src="img/gov.png" alt="The Government, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>The Government</h3>
+    <p class="role">Borrower-in-chief. Has a printer.</p>
+    <p>Spends first, asks who&#x27;s lending later. Owns the only printing press in the bar and swears he barely uses it.</p>
+    <p class="says">&ldquo;We&#x27;ll pay it back. Eventually. In something.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 003</p>
+  </div>
+</article>
+<article class="card" id="c-de">
+  <img src="img/de.png" alt="Germany, a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Germany</h3>
+    <p class="role">The one who reads the fine print.</p>
+    <p>Pays the tab in cash, folds the receipt twice and files it. Has opinions about everyone else&#x27;s rounding.</p>
+    <p class="says">&ldquo;Is this number audited?&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 003</p>
+  </div>
+</article>
+<article class="card" id="c-card">
+  <img src="img/card.png" alt="Card Co., a cartoon calculator" width="360" height="360" loading="lazy">
+  <div class="card-body">
+    <h3>Card Co.</h3>
+    <p class="role">Credit card operator. 22% smile.</p>
+    <p>Lends you money with a grin and charges you for the grin. Loves the word &#x27;minimum&#x27;. Knows exactly what your TV really costs.</p>
+    <p class="says">&ldquo;Just pay the minimum. Trust me.&rdquo;</p>
+    <p class="meta">First printed in Receipt No. 003</p>
   </div>
 </article>
       </div>
